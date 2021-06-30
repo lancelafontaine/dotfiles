@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+
+DOTFILES_PRIVATE_NAME = "dotfiles-private"
+DOTFILES_PRIVATE_PARENT_DIRECTORY = "~"
+DOTFILES_PRIVATE_DIRECTORY = File.join(DOTFILES_PRIVATE_PARENT_DIRECTORY, DOTFILES_PRIVATE_NAME)
+
+if File.directory?(File.expand_path(DOTFILES_PRIVATE_DIRECTORY))
+  `git -C #{DOTFILES_PRIVATE_DIRECTORY} pull`
+else
+  `git -C #{DOTFILES_PRIVATE_PARENT_DIRECTORY} clone git@github.com:lancelafontaine/#{DOTFILES_PRIVATE_NAME}.git`
+end
+
+puts(`#{File.join(DOTFILES_PRIVATE_DIRECTORY, 'install')}`)
+
